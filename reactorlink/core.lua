@@ -42,7 +42,8 @@ return function(data)
   
       local temp = reactor.getTemperature()
       local integ = 100-reactor.getDamagePercent()
-      if temp >= 10000 or integ <= 60 then
+      local coolant = reactor.getCoolantFilledPercentage()
+      if temp >= 10000 or integ <= 60 or coolant <= 0.5 then
         if not scram then
           scram = true
           if reactor.getStatus() then

@@ -71,6 +71,14 @@ return function(m, adapter, api)
       end
 
       do -- Coolant
+        local coolant = adapter.getCoolantFilledPercentage()
+        if coolant <= 0.8 and coolant > 0.5 then
+          term.setTextColor(colors.yellow)
+        elseif coolant <= 0.5 then
+          term.setTextColor(colors.red)
+        else
+          term.setTextColor(colors.white)
+        end
         term.setBackgroundColor(colors.black)
         term.setCursorPos(2, 7)
         term.write("Coolant")
@@ -78,10 +86,11 @@ return function(m, adapter, api)
         paintutils.drawLine(2, 8, w-1, 8, colors.gray)
         term.setCursorPos(2, 8)
         term.setBackgroundColor(colors.lightBlue)
-        term.write(string.rep(' ', (w-2)*adapter.getCoolantFilledPercentage()))
+        term.write(string.rep(' ', (w-2)*coolant))
       end
 
       do -- Fuel
+        term.setTextColor(colors.white)
         term.setBackgroundColor(colors.black)
         term.setCursorPos(2, 10)
         term.write("Fuel")
